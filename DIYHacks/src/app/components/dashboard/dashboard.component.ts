@@ -8,11 +8,17 @@ import { UsersService } from '../../services/users.service'
 })
 export class DashboardComponent implements OnInit {
 
+  usuarios;
+
   constructor(private userService:UsersService) {
     // this.userService.variable
   }
 
   ngOnInit() {
+    this.userService.getUsers().subscribe((users)=>{
+      console.log("Usuarios cargados");
+      this.usuarios = users;
+    })
   }
 
 }
