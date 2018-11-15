@@ -19,18 +19,20 @@ export class UsersService {
     return this.http.get(`${this.url}/profile/${id}`);
   }
 
-  addUser(username, passw) {
+  addUser(username, passw, email) {
     let user = {
-      usuario: username,
-      password: passw
+      username: username,
+      password: passw,
+      email: email
     };
     return this.http.post(`${this.url}/profile/add`, user);
   }
 
-  updateUser(id, username, passw) {
+  updateUser(id, username, passw, email) {
     let user = {
-      usuario: username,
-      password: passw
+      username: username,
+      password: passw,
+      email: email
     };
     return this.http.post(`${this.url}/profile/update/${id}`, user);
   }

@@ -15,9 +15,27 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showUsers();
+  }
+
+  showUsers() {
     this.userService.getUsers().subscribe((users)=>{
       console.log("Usuarios cargados");
       this.usuarios = users;
+    });
+  }
+
+  eliminar(id) {
+    this.userService.deleteUser(id).subscribe(()=>{
+      console.log("Usuario eliminado");
+      this.showUsers();
+    })
+  }
+
+  addUser(user, passw, email) {
+    this.userService.addUser(user, passw, email).subscribe(()=>{
+      console.log("Usuario añadido");
+      this.showUsers();
     })
   }
 

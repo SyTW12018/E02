@@ -30,7 +30,7 @@ router.route('/users').get((req,res)=>{
 })
 
 router.route('/profile/:id').get((req,res)=>{
-  User.find({'usuario': req.params.id}, (err,user)=>{
+  User.find({'username': req.params.id}, (err,user)=>{
     if(err) console.log("No existe este usuario");
     else    res.json(user);
   })

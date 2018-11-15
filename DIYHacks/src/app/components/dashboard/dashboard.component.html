@@ -1,6 +1,16 @@
-<div style="margin-top:30px">
-  <pre *ngFor="let user of usuarios">
-    {{user.usuario}}
-    <small>{{user.password}}</small>
+<div style="text-align:center;">
+      <input style="display:block; text-align:center; margin:auto" type="text" #user placeholder="username">
+      <input style="display:block; text-align:center; margin:auto" type="password" #passw placeholder="password">
+      <input style="display:block; text-align:center; margin:auto" type="email" #email placeholder="email"><br>
+      <button type="button" class="btn btn-success" name="button"
+      (click)="addUser(user.value, passw.value, email.value)"
+      >Añadir usuario</button>
+  <pre style="margin:20px;" *ngFor="let user of usuarios">
+{{user.username}}
+<small>{{user.email}}</small>
+<small>{{user.password}}</small>
+<button type="button" class="btn btn-danger" name="button"
+(click)="eliminar(user._id)">
+Eliminar</button>
   </pre>
 </div>
