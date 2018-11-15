@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service'
+import { User } from '../../models/user.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit {
   showUsers() {
     this.userService.getUsers().subscribe((users)=>{
       console.log("Usuarios cargados");
+      console.log(users);
       this.usuarios = users;
     });
   }
@@ -32,8 +34,9 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  addUser(user, passw, email) {
-    this.userService.addUser(user, passw, email).subscribe(()=>{
+  addUser(name, passw, email) {
+    let user = new User(name, passw, email)
+    this.userService.addUser(user).subscribe(()=>{
       console.log("Usuario añadido");
       this.showUsers();
     })
