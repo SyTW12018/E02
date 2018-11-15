@@ -18,7 +18,7 @@ export class UsersService {
     return this.http.get<User[]>(`${this.url}/users`).pipe(
             map( res => {
               return res.map( (user) => {
-                return new User(user.username,user.password,user.email);
+                return new User( user.username,user.password,user.email, user._id,);
               } )
             } )
           );
@@ -27,7 +27,7 @@ export class UsersService {
   getUser(id):Observable<User> {
     return this.http.get<User>(`${this.url}/profile/${id}`).pipe(
       map( user => {
-        return new User(user.username,user.password,user.email);
+        return new User(user.username,user.password,user.email, user._id,);
       })
     );
   }

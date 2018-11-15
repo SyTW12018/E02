@@ -1,9 +1,9 @@
 <div style="text-align:center;">
-      <input style="display:block; text-align:center; margin:auto" type="text" #user placeholder="username">
+      <input style="display:block; text-align:center; margin:auto" type="text" #name placeholder="username">
       <input style="display:block; text-align:center; margin:auto" type="password" #passw placeholder="password">
       <input style="display:block; text-align:center; margin:auto" type="email" #email placeholder="email"><br>
       <button type="button" class="btn btn-success" name="button"
-      (click)="addUser(user.value, passw.value, email.value)"
+      (click)="addUser(name.value, passw.value, email.value)"
       >Añadir usuario</button>
   <pre style="margin:20px;" *ngFor="let user of usuarios">
 {{user.username}}
@@ -12,5 +12,8 @@
 <button type="button" class="btn btn-danger btn-sm" name="button"
 (click)="eliminar(user._id)">
 Eliminar</button>
+<!-- <button type="button" class="btn btn-warning btn-sm" name="button"
+(click)="actualizar(user._id, user.username, name.value, passw.value, email.value)">
+Update</button> -->
   </pre>
 </div>

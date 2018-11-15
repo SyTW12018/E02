@@ -9,7 +9,7 @@ import { User } from '../../models/user.model'
 })
 export class DashboardComponent implements OnInit {
 
-  usuarios;
+  usuarios:User[];
 
   constructor(private userService:UsersService) {
     // this.userService.variable
@@ -33,6 +33,13 @@ export class DashboardComponent implements OnInit {
       this.showUsers();
     })
   }
+
+  // actualizar(id, currentName, name, passw, email) {
+  //   this.userService.getUser(currentName).subscribe( (us)=> {
+  //     us.updateUser( { name, passw, email } );
+  //     this.userService.updateUser(id, user);
+  //   });
+  // }
 
   addUser(name, passw, email) {
     let user = new User(name, passw, email)
