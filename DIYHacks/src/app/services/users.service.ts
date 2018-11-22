@@ -24,10 +24,14 @@ export class UsersService {
           );
   }
 
-  getUser(id):Observable<User> {
+  getUser(id:any):Observable<User> {
+    if (id == '') id = 'a';
     return this.http.get<User>(`${this.url}/profile/${id}`).pipe(
       map( user => {
-        return new User(user.username,user.password,user.email, user._id,);
+        if(user[0])
+          return new User(user[0].username,user[0].password,user[0].email, user[0]._id,);
+        else
+          return undefined;
       })
     );
   }

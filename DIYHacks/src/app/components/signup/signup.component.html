@@ -1,0 +1,76 @@
+<div class="row wrapper">
+  <div class="col-md-6 offset-md-3">
+
+    <img src="https://i.imgur.com/vg8hKU6.png" alt="logo" class="img-fluid main-logo">
+
+    <form class="main-form" (ngSubmit)="guardar(form, username)" #form="ngForm">
+      <div class="form-group">
+        <input type="text"
+              class="form-control"
+              [ngClass]="{'wrong': false}"
+              placeholder="Username"
+              name="username"
+              [(ngModel)]="datosUsuario.username"
+              (change)="checkUserAvailability()"
+              minlength="4"
+              required
+              #username="ngModel">
+        <p *ngIf="loadingUsernameStatus && username.value.length >= 4"
+            class="correct">
+            <i class="fas fa-spinner fa-spin"></i>
+            Checking for username
+        </p>
+        <p *ngIf="username.errors?.required && !username.pristine"
+            class="text-wrong">
+            Este campo es obligatorio
+        </p>
+        <p *ngIf="username.errors?.minlength && !username.pristine"
+            class="text-wrong">
+            Como mínimo {{username.errors.minlength.requiredLength}} caracteres.
+        </p>
+        <p *ngIf="usernameValido && !username.errors?.minlength && !username.errors?.required"
+            class="correct">
+            El usuario está disponible
+        </p>
+        <p *ngIf="false"
+            class="text-wrong">
+            El usuario no está disponible
+        </p>
+      </div>
+      <div class="form-group">
+        <input type="email"
+              class="form-control"
+              placeholder="Correo electronico"
+              name="email"
+              [(ngModel)]="datosUsuario.email"
+              required>
+      </div>
+      <div class="form-group">
+        <input type="password"
+              class="form-control"
+              placeholder="Password"
+              name="password"
+              minlength="6"
+              [(ngModel)]="datosUsuario.password"
+              required>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox"
+              class="form-check-input"
+              id="checkbox1"
+              name="checkbox"
+              ngModel
+              required>
+        <label class="form-check-label" for="checkbox1">Acepto los <a href="">términos y condiciones</a></label>
+      </div>
+      <button type="submit" class="btn btn-signup">Sign up!</button>
+    </form>
+    <hr>
+    <button type="button" class="btn btn-facebook"> <i class="fab fa-facebook-f" style="margin-right: 5px"></i> Regístrate con Facebook</button>
+
+
+    <p style="padding:10px">¿Ya tienes cuenta? <a href="">Entrar</a></p>
+
+  </div>
+
+</div>
