@@ -7,7 +7,8 @@
       <div class="form-group">
         <input type="text"
               class="form-control"
-              [ngClass]="{'wrong': false}"
+              [ngClass]="{'wrong': username.errors?.required && username.touched ||
+                                   username.errors?.minlength && username.touched }"
               placeholder="Username"
               name="username"
               [(ngModel)]="datosUsuario.username"
@@ -20,7 +21,7 @@
             <i class="fas fa-spinner fa-spin"></i>
             Checking for username
         </p>
-        <p *ngIf="username.errors?.required && !username.pristine"
+        <p *ngIf="username.errors?.required && username.touched"
             class="text-wrong">
             Este campo es obligatorio
         </p>

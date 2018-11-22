@@ -7,35 +7,7 @@ import { User } from '../../models/user.model';
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styles: [`
-    a {
-      color: #48924A;
-    }
-    .wrapper {
-      padding: 50px 20px;
-    }
-    .main-logo {
-      max-width: 300px;
-    }
-    .main-form {
-      margin: 30px 0 15px;
-    }
-    .btn-signup {
-      background-color: #48924A;
-      color: white;
-    }
-    .btn-facebook {
-      background-color: #3B5998;
-      color: white;
-    }
-    .wrong {
-      border: 1px solid #d00;
-    }
-    .correct {
-      color: #48924A;
-    }
-    .text-wrong {
-      color: #D00;
-    }
+    
   `]
 })
 export class SignupComponent implements OnInit {
