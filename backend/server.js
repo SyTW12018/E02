@@ -44,7 +44,7 @@ router.route('/profile/:id').get((req,res)=>{
 //   })
 // });
 
-// Añadir usuario a la base de datos ?
+// Añadir usuario a la base de datos 
 router.route('/profile/add').post((req,res)=>{
   let user = new User(req.body);
   user.save().then(user =>{
@@ -62,6 +62,7 @@ router.route('/profile/update/:id').post((req,res)=>{
     else {
       user.usuario = req.body.usuario;
       user.password = req.body.password;
+      user.email = req.body.email;
 
       user.save().then(user =>{
         res.json('Update done');
