@@ -36,6 +36,18 @@ export class UsersService {
     );
   }
 
+  getEmail(id:any):Observable<User> {
+    if (id == '') id = 'a';
+    return this.http.get<User>(`${this.url}/email/${id}`).pipe(
+      map( user => {
+        if(user[0])
+          return new User(user[0].username,user[0].password,user[0].email, user[0]._id,);
+        else
+          return undefined;
+      })
+    );
+  }
+
   addUser(user:User) {
     return this.http.post(`${this.url}/profile/add`, user);
   }

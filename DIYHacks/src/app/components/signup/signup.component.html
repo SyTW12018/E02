@@ -1,76 +1,125 @@
-<div class="row wrapper">
+<div class="row wrapper animated fadeIn fast">
   <div class="col-md-6 offset-md-3">
 
-    <img src="https://i.imgur.com/vg8hKU6.png" alt="logo" class="img-fluid main-logo">
+    <img src="https://i.imgur.com/vg8hKU6.png" alt="logo"
+        class="img-fluid main-logo">
 
-    <form class="main-form" (ngSubmit)="guardar(form, username)" #form="ngForm">
+    <form class="main-form" [formGroup]="formulario" (ngSubmit)="submitForm()">
       <div class="form-group">
         <input type="text"
               class="form-control"
-              [ngClass]="{'wrong': username.errors?.required && username.touched ||
-                                   username.errors?.minlength && username.touched }"
-              placeholder="Username"
-              name="username"
-              [(ngModel)]="datosUsuario.username"
-              (change)="checkUserAvailability()"
-              minlength="4"
-              required
-              #username="ngModel">
-        <p *ngIf="loadingUsernameStatus && username.value.length >= 4"
-            class="correct">
-            <i class="fas fa-spinner fa-spin"></i>
+              placeholder="Nombre de usuario"
+              formControlName="username">
+        <p *ngIf="formulario.controls['username'].errors?.required &&
+                  formulario.controls['username'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Este campo es obligatorio
+        </p>
+        <p *ngIf="formulario.controls['username'].errors?.minlength&&
+                  formulario.controls['username'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Como mínimo {{formulario.controls['username'].errors.minlength.requiredLength}} caracteres.
+        </p>
+        <p *ngIf="formulario.controls['username'].status == 'PENDING'"
+          class="correct feedback animated fadeIn fast">
+            <i class="fas fa-spinner fa-pulse"></i>
             Checking for username
         </p>
-        <p *ngIf="username.errors?.required && username.touched"
-            class="text-wrong">
-            Este campo es obligatorio
-        </p>
-        <p *ngIf="username.errors?.minlength && !username.pristine"
-            class="text-wrong">
-            Como mínimo {{username.errors.minlength.requiredLength}} caracteres.
-        </p>
-        <p *ngIf="usernameValido && !username.errors?.minlength && !username.errors?.required"
-            class="correct">
+        <p *ngIf="formulario.controls['username'].status == 'VALID'"
+          class="correct feedback animInOut">
+            <i class="fas fa-check"></i>
             El usuario está disponible
         </p>
-        <p *ngIf="false"
-            class="text-wrong">
-            El usuario no está disponible
+        <p *ngIf="formulario.controls['username'].errors?.usertaken"
+          class="text-wrong feedback animated fadeIn fast">
+            El nombre de usuario ya está en uso
         </p>
       </div>
       <div class="form-group">
         <input type="email"
               class="form-control"
-              placeholder="Correo electronico"
-              name="email"
-              [(ngModel)]="datosUsuario.email"
-              required>
+              placeholder="Correo electrónico"
+              formControlName="email">
+        <p *ngIf="formulario.controls['email'].errors?.required &&
+                  formulario.controls['email'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Este campo es obligatorio
+        </p>
+        <p *ngIf="formulario.controls['email'].errors?.pattern &&
+                  formulario.controls['email'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Introduce un email válido
+        </p>
+        <p *ngIf="formulario.controls['email'].status == 'PENDING'"
+          class="correct feedback animated fadeIn fast">
+            <i class="fas fa-spinner fa-pulse"></i>
+            Checking for Email
+        </p>
+        <p *ngIf="formulario.controls['email'].status == 'VALID'"
+          class="correct feedback animInOut">
+            <i class="fas fa-check"></i>
+            El correo está disponible
+        </p>
+        <p *ngIf="formulario.controls['email'].errors?.emailtaken"
+          class="text-wrong feedback animated fadeIn fast">
+            Este correo ya está en uso. <a href="">¿Has olvidado tu contraseña?</a>
+        </p>
       </div>
       <div class="form-group">
         <input type="password"
               class="form-control"
-              placeholder="Password"
-              name="password"
-              minlength="6"
-              [(ngModel)]="datosUsuario.password"
-              required>
+              placeholder="Contraseña"
+              formControlName="password">
+        <p *ngIf="formulario.controls['password'].errors?.required &&
+                  formulario.controls['password'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+            Este campo es obligatorio
+        </p>
+        <p *ngIf="formulario.controls['password'].errors?.minlength &&
+                  formulario.controls['password'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+            Como mínimo 6 caracteres
+        </p>
+      </div>
+      <div class="form-group">
+        <input type="password"
+              class="form-control"
+              placeholder="Repetir contraseña"
+              formControlName="passrepeat">
+        <p *ngIf="formulario.controls['passrepeat'].errors?.required &&
+                  formulario.controls['passrepeat'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+            Este campo es obligatorio
+        </p>
+        <p *ngIf="formulario.controls['passrepeat'].errors?.passwdistinct &&
+                  formulario.controls['passrepeat'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+            Las contraseñas no coinciden
+        </p>
       </div>
       <div class="form-group form-check">
         <input type="checkbox"
               class="form-check-input"
-              id="checkbox1"
-              name="checkbox"
-              ngModel
-              required>
-        <label class="form-check-label" for="checkbox1">Acepto los <a href="">términos y condiciones</a></label>
+              id="condiciones"
+              formControlName="checkbox">
+        <label class="form-check-label" for="condiciones">Acepto los <a [routerLink]="['/signup']">términos y condiciones</a></label>
+        <p *ngIf="formulario.controls['checkbox'].errors?.required &&
+                  formulario.controls['checkbox'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+            Debes aceptar las condiciones
+        </p>
       </div>
-      <button type="submit" class="btn btn-signup">Sign up!</button>
+      <button [disabled]="!formulario.valid"
+              type="submit"
+              class="btn btn-signup btn-lg">
+              Sign up!
+      </button>
     </form>
     <hr>
-    <button type="button" class="btn btn-facebook"> <i class="fab fa-facebook-f" style="margin-right: 5px"></i> Regístrate con Facebook</button>
+    <button type="button" class="btn btn-facebook btn-lg"> <i class="fab fa-facebook-f" style="margin-right: 5px"></i> Regístrate con Facebook</button>
 
 
-    <p style="padding:10px">¿Ya tienes cuenta? <a href="">Entrar</a></p>
+    <p style="padding:10px">¿Ya tienes cuenta? <a [routerLink]="['/login']">Entrar</a></p>
 
   </div>
 

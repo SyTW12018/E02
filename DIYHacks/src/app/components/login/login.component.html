@@ -1,28 +1,62 @@
-<div class="row wrapper">
+<div class="row wrapper animated fadeIn fast">
   <div class="col-md-6 offset-md-3">
     <img class="img-fluid main-logo" alt="logo" src="https://i.imgur.com/vg8hKU6.png">
 
-    <form class="main-form">
-      <div class="text center" class="form-group">
-        <input type="email" class="form-control" placeholder="Usuario o correo electrónico">
+    <form [formGroup]="formulario"
+          (ngSubmit)="login()"
+          class="main-form">
+      <div class="text-center" class="form-group">
+        <input type="email"
+              class="form-control"
+              placeholder="Usuario o correo electrónico"
+              formControlName="user">
+        <p *ngIf="formulario.controls['user'].errors?.required &&
+                  formulario.controls['user'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Este campo es obligatorio
+        </p>
+        <p *ngIf="formulario.controls['user'].errors?.minlength&&
+                  formulario.controls['user'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Introduce un usuario válido
+        </p>
       </div>
       <div class="form-group">
-        <input type="password" class="form-control" placeholder="Contraseña">
+        <input type="password"
+              class="form-control"
+              placeholder="Contraseña"
+              formControlName="password">
+        <p *ngIf="formulario.controls['password'].errors?.required &&
+                  formulario.controls['password'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Este campo es obligatorio
+        </p>
+        <p *ngIf="formulario.controls['password'].errors?.minlength&&
+                  formulario.controls['password'].touched"
+          class="text-wrong feedback animated fadeIn fast">
+          Introduce una contraseña válida
+        </p>
       </div>
       <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Recuérdame</label>
+        <input type="checkbox"
+              class="form-check-input"
+              id="recuerdame"
+              formControlName="checkme">
+        <label class="form-check-label" for="recuerdame">Recuérdame</label>
       </div>
-      <button type="button" class="btn btn-button btn-lg">Entrar</button>
+      <button [disabled]="formulario.invalid"
+              type="submit"
+              class="btn btn-button btn-lg">
+              Entrar
+      </button>
     </form>
 
     <div class="">
-      <p>¿Has olvidado tu contraseña? <a href="#" class="font-weight-bold">Obtén ayuda</a>.</p>
+      <p>¿Has olvidado tu contraseña? <a [routerLink]="['/login']" class="font-weight-bold">Obtén ayuda</a>.</p>
     </div>
 
     <hr style="margin: 20px 0">
     <button type="button" class="btn btn-face btn-lg "> <i class="fab fa-facebook-f"style="margin-right: 5px"></i>Iniciar sesión con facebook</button>
-    <hr style="margin-top:40px">
-    <p>¿No tienes cuenta? <a href="#" class="font-weight-bold">Regístrate</a>.</p>
+    <p style="padding:10px">¿No tienes cuenta? <a [routerLink]="['/signup']" class="font-weight-bold">Regístrate</a>.</p>
   </div>
 </div>

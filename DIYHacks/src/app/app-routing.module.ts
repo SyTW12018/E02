@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'profile/:id', component:ProfileComponent},
   {path: 'explore', component:ExploreComponent},
   {path: 'signup', component:SignupComponent},
-  {path: '**', pathMatch:'full', redirectTo:'dashboard' }
+  {path: '**', pathMatch:'full', redirectTo:'login' }
 ];
 
 @NgModule({

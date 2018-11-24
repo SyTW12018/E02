@@ -1,26 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { UsersService } from '../../services/users.service'
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styles: [`
-    .btn-button {
-    background-color: #48924A;
-    color: #FFFFFF;
-    min-width: 150px;
-  }
-  .btn-face {
-  background-color: #3B5998;
-  color: #FFFFFF;
-  }
+
   `]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private userService:UsersService) { }
+  formulario:FormGroup;
 
-  ngOnInit() {
+  constructor(private userService:UsersService) {
+
+    this.formulario = new FormGroup({
+      'user':     new FormControl(  ''   , [
+                          Validators.required,
+                          Validators.minLength(4)
+                        ] ),
+      'password': new FormControl(  ''   , [
+                          Validators.required,
+                          Validators.minLength(6)
+                        ] ),
+      'checkme':  new FormControl( false , Validators.required )
+    })
+
   }
+  // login
+  login() {
+    console.log('Login')
+    console.log(this.formulario)
+    console.log(this.formulario.value)
+  }
+
 
 }

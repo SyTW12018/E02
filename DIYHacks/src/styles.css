@@ -6,6 +6,65 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 a {
   color: #48924A;
 }
+input {
+  text-align: center;
+}
+/* fixing bootstrap class */
+.row {
+  margin: 0;
+}
+.feedback {
+  padding-top: 4px;
+  font-size: smaller;
+}
+.btn-button {
+  background-color: #48924A;
+  color: #FFFFFF;
+  min-width: 150px;
+}
+.btn-face {
+  background-color: #3B5998;
+  color: #FFFFFF;
+}
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.fast {
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+.animInOut {
+  -webkit-animation: fadeInOut 1.5s ease forwards;
+  animation: fadeInOut 1.5s ease forwards;
+}
+@-webkit-keyframes fadeInOut {
+  0%,66% { margin-top: 0px; opacity: 1}
+  100% { margin-top: -23px; opacity: 0; visibility: hidden;}
+}
+@keyframes fadeInOut {
+  0%,66% { margin-top: 0px; opacity: 1}
+  100% { margin-top: -23px; opacity: 0; visibility: hidden;}
+}
+
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+.form-control.ng-invalid.ng-touched {
+  border: 1px solid #D00;
+}
+
 .wrapper {
   padding: 50px 20px;
 }
@@ -18,6 +77,10 @@ a {
 .btn-signup {
   background-color: #48924A;
   color: white;
+}
+.btn-signup:disabled {
+  background-color: #65b367;
+  /* color: white; */
 }
 .btn-facebook {
   background-color: #3B5998;
