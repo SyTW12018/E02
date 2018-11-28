@@ -35,6 +35,14 @@ router.route('/profile/:id').get((req,res)=>{
     else    res.json(user);
   })
 });
+// Encontrar una entrada por su email
+router.route('/email/:id').get((req,res)=>{
+  User.find({'email': req.params.id}, (err,user)=>{
+    if(err) console.log("No existe este usuario");
+    else    res.json(user);
+  })
+});
+
 
 // router.route('profile/:id').get((req,res)=>{
 //   User.findById(req.params.id, (err,user)=>{
@@ -44,7 +52,7 @@ router.route('/profile/:id').get((req,res)=>{
 //   })
 // });
 
-// Añadir usuario a la base de datos 
+// Añadir usuario a la base de datos
 router.route('/profile/add').post((req,res)=>{
   let user = new User(req.body);
   user.save().then(user =>{

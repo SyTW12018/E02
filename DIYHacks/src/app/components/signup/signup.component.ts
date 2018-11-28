@@ -100,7 +100,7 @@ export class SignupComponent {
     this.userService.addUser(user).subscribe( (res:any)=> {
       if (res.user) {
         console.log(res.user)
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/login'])
       } else {
         console.log('something went wrong')
       }

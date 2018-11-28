@@ -92,6 +92,7 @@
             Este campo es obligatorio
         </p>
         <p *ngIf="formulario.controls['passrepeat'].errors?.passwdistinct &&
+                  !formulario.controls['passrepeat'].errors?.required &&
                   formulario.controls['passrepeat'].touched"
           class="text-wrong feedback animated fadeIn fast">
             Las contraseñas no coinciden
