@@ -23,27 +23,31 @@ export class UsersService {
             } )
           );
   }
+  getUser(id:string):Observable<User> {
+    return this.http.get<User>(`${this.url}/protected/profile/${id}`).pipe(
+      map( (res:any) => {
+        return new User( res.usuario.username,
+                         res.usuario.password,
+                         res.usuario.email,
+                         res._id )
+      })
+    )
+  }
 
-  getUser(id:any):Observable<User> {
+  checkUser(id:string):Observable<boolean> {
     if (id == '') id = 'a';
     return this.http.get<User>(`${this.url}/profile/${id}`).pipe(
-      map( user => {
-        if(user[0])
-          return new User(user[0].username,user[0].password,user[0].email, user[0]._id,);
-        else
-          return undefined;
+      map( (user:any) => {
+        return user.ok;
       })
     );
   }
 
-  getEmail(id:any):Observable<User> {
+  checkEmail(id:string):Observable<boolean> {
     if (id == '') id = 'a';
     return this.http.get<User>(`${this.url}/email/${id}`).pipe(
-      map( user => {
-        if(user[0])
-          return new User(user[0].username,user[0].password,user[0].email, user[0]._id,);
-        else
-          return undefined;
+      map( (user:any) => {
+        return user.ok;
       })
     );
   }
@@ -53,10 +57,10 @@ export class UsersService {
   }
 
   updateUser(id, user:User) {
-    return this.http.post(`${this.url}/profile/update/${id}`, user);
+    return this.http.post(`${this.url}/protected/profile/update/${id}`, user);
   }
 
   deleteUser(id){
-    return this.http.get(`${this.url}/profile/delete/${id}`);
+    return this.http.get(`${this.url}/protected/profile/delete/${id}`);
   }
 }

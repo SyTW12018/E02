@@ -4,26 +4,24 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import jwt from 'jsonwebtoken';
-import config from './config/config';
-
-import User from './models/User'
+// import SEED from './config/config';
+// JWT seed
+const SEED = '@SyTW-@diyhacks';
+import User from './models/User';
 
 const app = express();
-
 const router = express.Router();
 
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb://localhost:27017/test');
-
+mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true });
 const connection = mongoose.connection;
-
 connection.once('open', ()=>{
   console.log('MongoDB conexion establecida');
 });
-
-router.route('/protected/users').get((req,res)=>{
+// Lista todos los usuarios
+router.route('/users').get((req,res)=>{
   User.find((err,users)=>{
     if(err) console.log("No hay usuarios");
     else {
@@ -31,18 +29,81 @@ router.route('/protected/users').get((req,res)=>{
     }
   })
 })
+// // Encuentra un usuario por su id
+router.route('/protected/profile/:id').get( (req,res)=>{
+  User.findById(req.params.id, (err,user)=>{
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        mensaje: 'Error al buscar el usuario',
+        errors: err
+      })
+    }
+    if (!user) {
+      return res.status(200).json({
+        ok: false,
+        mensaje: 'Usuario introducido no existe',
+        errors: err
+      });
+    }
+    res.status(200).json({
+      ok: true,
+      usuario: user,
+      id: user._id
+      // token: token,
+    });
+  })
+});
 // Verificar un perfil por su username
 router.route('/profile/:id').get((req,res)=>{
-  User.find({'username': req.params.id}, (err,user)=>{
-    if(err) console.log("No existe este usuario");
-    else    res.json({ok: true});
+  User.findOne({'username': req.params.id}, (err,user)=>{
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        mensaje: 'Error al buscar el usuario',
+        errors: err
+      })
+    }
+    if (!user) {
+      console.log('El usuario no existe');
+      return res.status(200).json({
+        ok: false,
+        mensaje: 'Usuario introducido no existe',
+        errors: err
+      });
+    }
+    res.status(200).json({
+      ok: true,
+      // usuario: user
+      // token: token,
+      id: user._id
+    });
   })
 });
 // Verificar un perfil por su email
 router.route('/email/:id').get((req,res)=>{
-  User.find({'email': req.params.id}, (err,user)=>{
-    if(err) console.log("No existe este usuario");
-    else    res.json({ok: true});
+  User.findOne({'email': req.params.id}, (err,user)=>{
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        mensaje: 'Error al buscar el correo',
+        errors: err
+      })
+    }
+    if (!user) {
+      return res.status(200).json({
+        ok: false,
+        mensaje: 'Usuario introducido no existe',
+        errors: err
+      });
+    }
+    console.log(user);
+    res.status(200).json({
+      ok: true,
+      // usuario: user
+      // token: token,
+      id: user._id
+    });
   })
 });
 
@@ -72,11 +133,9 @@ router.route('/users/authenticate').post((req,res)=>{
       });
     }
     // Crear un token
-    let token = jwt.sign({ usuario: user}, config.SEED, {expiresIn: 14400 }); // 4 horas
+    let token = jwt.sign({ usuario: user}, SEED, {expiresIn: 14400 }); // 4 horas
 
     res.status(200).json({
-      ok: true,
-      usuario: user,
       token: token,
       id: user._id
     });
@@ -124,8 +183,8 @@ router.route('/protected/profile/delete/:id').get((req,res)=>{
 });
 // JWT filter
 app.use('/protected', (req,res,next)=>{
-  let token = req.query.token;
-  jwt.verify( token, config.SEED, ( err, decoded ) => {
+  let token = req.headers.token;
+  jwt.verify( token, SEED, ( err, decoded ) => {
     if (err) {
       return res.status(401).json({
         ok: false,
@@ -140,5 +199,4 @@ app.use('/', router);
 
 app.listen(4000, ()=>{
   console.log('Express server on port 4000');
-  console.log(config.SEED);
 });

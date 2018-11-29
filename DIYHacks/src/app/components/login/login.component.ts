@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { UsersService } from '../../services/users.service'
-import { User } from '../../models/user.model';
+// import { UsersService } from '../../services/users.service'
+// import { User } from '../../models/user.model';
 import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../services/authentication.service';
@@ -18,9 +18,13 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
+  noValid = false;
+  returnUrl:string;
   formulario:FormGroup;
 
-  constructor(private userService:UsersService,
+  constructor(/*private userService:UsersService,*/
+              private route: ActivatedRoute,
+              private router: Router,
               private authenticationService: AuthenticationService) {
 
     this.formulario = new FormGroup({
@@ -37,10 +41,10 @@ export class LoginComponent implements OnInit {
 
   }
   ngOnInit() {
-  // reset login status
-  this.authenticationService.logout();
-  // get return url from route parameters or default to '/'
-  // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // reset login status
+    this.authenticationService.logout();
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   // login
   login() {
@@ -48,16 +52,18 @@ export class LoginComponent implements OnInit {
     console.log(this.formulario)
     console.log(this.formulario.value)
 
-    this.authenticationService.login('username', 'password')
+    this.authenticationService.login(this.formulario.value.user, this.formulario.value.password)
            .pipe(first())
            .subscribe(
                data => {
                  // Navegar a la página solicitada
-                  // this.router.navigate([this.returnUrl]);
+                 console.log('Credenciales correctas');
+                 this.router.navigate([this.returnUrl]);
                },
                error => {
-                //Si las credenciales no son válidas...
-
+                 //Si las credenciales no son válidas...
+                 this.noValid = true;
+                 console.log('Credenciales no válidas')
                });
   }
 

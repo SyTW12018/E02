@@ -66,7 +66,7 @@ export class SignupComponent {
     let promesa = new Promise( (resolve, reject) => {
       setTimeout( () => {
         let currentUsername = mainObj.formulario.controls['username'].value;
-        mainObj.userService.getUser(currentUsername).subscribe( (res) => {
+        mainObj.userService.checkUser(currentUsername).subscribe( (res) => {
           if (res)
             resolve( { usertaken: true } )
           resolve( null );
@@ -80,7 +80,7 @@ export class SignupComponent {
     let promesa = new Promise( (resolve, reject) => {
       setTimeout( () => {
         let currentEmail = mainObj.formulario.controls['email'].value;
-        mainObj.userService.getEmail(currentEmail).subscribe( (res) => {
+        mainObj.userService.checkEmail(currentEmail).subscribe( (res) => {
           if (res)
             resolve( { emailtaken: true } )
           resolve( null );
