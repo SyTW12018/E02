@@ -3,6 +3,9 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
+import jwt from 'jsonwebtoken';
+import config from './config/config';
+
 import User from './models/User'
 
 const app = express();
@@ -20,7 +23,7 @@ connection.once('open', ()=>{
   console.log('MongoDB conexion establecida');
 });
 
-router.route('/users').get((req,res)=>{
+router.route('/protected/users').get((req,res)=>{
   User.find((err,users)=>{
     if(err) console.log("No hay usuarios");
     else {
@@ -28,29 +31,58 @@ router.route('/users').get((req,res)=>{
     }
   })
 })
-
+// Verificar un perfil por su username
 router.route('/profile/:id').get((req,res)=>{
   User.find({'username': req.params.id}, (err,user)=>{
     if(err) console.log("No existe este usuario");
-    else    res.json(user);
+    else    res.json({ok: true});
   })
 });
-// Encontrar una entrada por su email
+// Verificar un perfil por su email
 router.route('/email/:id').get((req,res)=>{
   User.find({'email': req.params.id}, (err,user)=>{
     if(err) console.log("No existe este usuario");
-    else    res.json(user);
+    else    res.json({ok: true});
   })
 });
 
+// Authenticate user Generar Token
+router.route('/users/authenticate').post((req,res)=>{
 
-// router.route('profile/:id').get((req,res)=>{
-//   User.findById(req.params.id, (err,user)=>{
-//     if (err) console.log(err);
-//     else
-//       res.json(user);
-//   })
-// });
+  User.findOne({'username': req.body.username}, (err,user)=>{
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        mensaje: 'Error al buscar el usuario',
+        errors: err
+      })
+    }
+    if (!user) {
+      return res.status(400).json({
+        ok: false,
+        mensaje: 'Credenciales incorrectas - email',
+        errors: err
+      });
+    }
+    if (user.password != req.body.password) {
+      return res.status(400).json({
+        ok: false,
+        mensaje: 'Credenciales incorrectas - password',
+        errors: err
+      });
+    }
+    // Crear un token
+    let token = jwt.sign({ usuario: user}, config.SEED, {expiresIn: 14400 }); // 4 horas
+
+    res.status(200).json({
+      ok: true,
+      usuario: user,
+      token: token,
+      id: user._id
+    });
+
+  });
+})
 
 // Añadir usuario a la base de datos
 router.route('/profile/add').post((req,res)=>{
@@ -62,8 +94,8 @@ router.route('/profile/add').post((req,res)=>{
     res.status(400).send('Failed to create new user')
   })
 });
-
-router.route('/profile/update/:id').post((req,res)=>{
+// Actualizar un perfil de usuario
+router.route('/protected/profile/update/:id').post((req,res)=>{
   User.findById(req.params.id, (err,user)=>{
     if(!user)
       return next(new Error('Could not load user'))
@@ -80,8 +112,8 @@ router.route('/profile/update/:id').post((req,res)=>{
     }
   })
 });
-
-router.route('/profile/delete/:id').get((req,res)=>{
+// Eliminar un perfil de usuario
+router.route('/protected/profile/delete/:id').get((req,res)=>{
   User.findByIdAndRemove({_id: req.params.id}, (err,user) =>{
     if(err)
       res.json(err);
@@ -90,9 +122,23 @@ router.route('/profile/delete/:id').get((req,res)=>{
     }
   })
 });
-
+// JWT filter
+app.use('/protected', (req,res,next)=>{
+  let token = req.query.token;
+  jwt.verify( token, config.SEED, ( err, decoded ) => {
+    if (err) {
+      return res.status(401).json({
+        ok: false,
+        mensaje: 'Token no valido',
+        errors: err
+      })
+    }
+    next();
+  })
+});
 app.use('/', router);
 
 app.listen(4000, ()=>{
   console.log('Express server on port 4000');
+  console.log(config.SEED);
 });
