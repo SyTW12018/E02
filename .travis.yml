@@ -9,10 +9,11 @@ install:
 
 before_script:
 - cd DIYHacks
-
-cache:
-  directories:
-    - DIYHacks/node_modules
+- npm set registry https://resgitry.npmjs.org/
+- npm i
+# cache:
+#   directories:
+#     - DIYHacks/node_modules
 
 addons:
   chrome: stable
