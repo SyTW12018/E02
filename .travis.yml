@@ -4,6 +4,12 @@ node_js:
 dist: trusty
 sudo: false
 
+install:
+- npm install -g @angular/cli
+
+before_script:
+- cd DIYHacks
+
 cache:
   directories:
     - node_modules
@@ -13,7 +19,6 @@ addons:
 
 script:
   #- npm run lint
-  - cd DIYHacks
   - npm run test
   #- npm run build
   #- xvfb-run npm run e2e
