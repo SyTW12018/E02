@@ -9,9 +9,7 @@ install:
 
 before_script:
 - cd DIYHacks
-- pwd
-- ls -la
-- npm install
+
 cache:
   directories:
     - DIYHacks/node_modules
