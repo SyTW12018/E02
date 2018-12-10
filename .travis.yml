@@ -23,6 +23,6 @@ addons:
 
 script:
   #- npm run lint
-  - npm run test
+  - npm run test:once
   #- npm run build
   #- xvfb-run npm run e2e
