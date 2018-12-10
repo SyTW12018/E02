@@ -10,7 +10,9 @@ install:
 before_script:
 - cd DIYHacks
 # - npm set registry https://resgitry.npmjs.org/
-- npm --registry http://registry.node-modules.io/ install
+#- npm --registry http://registry.node-modules.io/ install
+- npm update npm -g
+- npm install
 cache:
   directories:
     - node_modules/
