@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "8"
+  - "stable"
 dist: trusty
 sudo: false
 
@@ -9,6 +9,8 @@ install:
 
 before_script:
 - cd DIYHacks
+- pwd
+- ls -la
 - npm install
 cache:
   directories:
