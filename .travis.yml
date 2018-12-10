@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "stable"
 dist: trusty
-sudo: true
+sudo: false
 
 install:
 - npm install -g @angular/cli
@@ -10,7 +10,7 @@ install:
 before_script:
 - cd DIYHacks
 # - npm set registry https://resgitry.npmjs.org/
-- sudo npm --registry http://registry.node-modules.io/ install
+- npm --registry http://registry.node-modules.io/ install
 cache:
   directories:
     - node_modules/
