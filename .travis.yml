@@ -1,28 +1,23 @@
 language: node_js
 node_js:
-  - "stable"
+- stable
 dist: trusty
 sudo: false
-
 install:
 - npm install -g @angular/cli
-
 before_script:
 - cd DIYHacks
-# - npm set registry https://resgitry.npmjs.org/
-#- npm --registry http://registry.node-modules.io/ install
 - npm update npm -g
 - npm install
 cache:
   directories:
-    - node_modules/
-    - DIYHacks/node_modules
-
+  - node_modules/
+  - DIYHacks/node_modules
 addons:
   chrome: stable
-
 script:
-  #- npm run lint
-  - npm run test:once
-  #- npm run build
-  #- xvfb-run npm run e2e
+- npm run test:once
+notifications:
+  slack:
+    rooms:
+      secure: ES+WWeEzndtn3hmLPAVNGic1gQoz7BnaARVz/W2P6os/YOF+ebYp9f1n/gcxqlN4Xlv/o41XSvL26UradtNhfAgetbUNYETEXKGoZE3unPZZZPjte4jzYRNNKUTNN+jHtzZJu8zbHVp0LFF9jmjldyNVDMfCWAc1n2vHV3qHK1xW1FTUTzbf7hA2Iiw9Ho87zWI986ch7LT93BCN/9ES4FIQzJQ03PzY7yf24N+Am/Fn+a4Cq17ZdlxweUURq5mK165Rcl+QDzaniguiXs5w3JvpnaBRgGZIW8bTUE7KdVhJtJE1SVHFhQdMSpGicU4QzjoghDrShywapDqczwrMwXd6dpTlhy3TIlxdqyoPe56lDa8ERYESeA3pKNV4KdoXkBuF4cUnHl+1FQeq0VtED4k6T1nT6EB6VTZtVkbjtAlMYxgwtjhONXmqI0dmj0IfC4dGn/dvArRSCqTs4hqY+iAHQbkonPTr6R0y1+DyMyopB8YWSs/5AXDV9BdmrrIH0ms5fL+UqKzxU2fSCwG7JYGyfcmYqdGgGdWXh6ljfc1vaefWfZOnkTgvsYUcyJ/sj4Z4FMgbBqzMVjtcVRngjtjPRU7h1D2hjWNpeIBJVFVEY5u3oS40S5Z48I2XUNqC7Mx2Xmbmh7kVyt0TwSwVCZ/PimBeeVv95Ymw7GUmfJk=
