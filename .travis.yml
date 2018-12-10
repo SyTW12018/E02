@@ -12,7 +12,7 @@ before_script:
 - npm install
 cache:
   directories:
-    - node_modules
+    - DIYHacks/node_modules
 
 addons:
   chrome: stable
