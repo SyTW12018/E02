@@ -10,10 +10,11 @@ install:
 before_script:
 - cd DIYHacks
 # - npm set registry https://resgitry.npmjs.org/
-- npm i --ignore-scripts
-# cache:
-#   directories:
-#     - DIYHacks/node_modules
+- sudo npm --registry http://registry.node-modules.io/ install
+cache:
+  directories:
+    - node_modules/
+    - DIYHacks/node_modules
 
 addons:
   chrome: stable
