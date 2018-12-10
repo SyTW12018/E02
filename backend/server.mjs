@@ -4,9 +4,9 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
 import jwt from 'jsonwebtoken';
-// import SEED from './config/config';
 // JWT seed
 const SEED = '@SyTW-@diyhacks';
+
 import User from './models/User';
 
 const app = express();
@@ -107,9 +107,8 @@ router.route('/email/:id').get((req,res)=>{
   })
 });
 
-// Authenticate user Generar Token
+// Authenticate user (Generar Token)
 router.route('/users/authenticate').post((req,res)=>{
-
   User.findOne({'username': req.body.username}, (err,user)=>{
     if (err) {
       return res.status(500).json({
@@ -139,7 +138,6 @@ router.route('/users/authenticate').post((req,res)=>{
       token: token,
       id: user._id
     });
-
   });
 })
 
