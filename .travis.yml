@@ -15,9 +15,17 @@ cache:
   - DIYHacks/node_modules
 addons:
   chrome: stable
+   sonarcloud:
+    organization: alu0100890402-github # the key of the org you chose at step #3
+    token:
+      secure: ********* # encrypted value of your token
 script:
 - npm run test:once
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
 notifications:
   slack:
     rooms:
       secure: ES+WWeEzndtn3hmLPAVNGic1gQoz7BnaARVz/W2P6os/YOF+ebYp9f1n/gcxqlN4Xlv/o41XSvL26UradtNhfAgetbUNYETEXKGoZE3unPZZZPjte4jzYRNNKUTNN+jHtzZJu8zbHVp0LFF9jmjldyNVDMfCWAc1n2vHV3qHK1xW1FTUTzbf7hA2Iiw9Ho87zWI986ch7LT93BCN/9ES4FIQzJQ03PzY7yf24N+Am/Fn+a4Cq17ZdlxweUURq5mK165Rcl+QDzaniguiXs5w3JvpnaBRgGZIW8bTUE7KdVhJtJE1SVHFhQdMSpGicU4QzjoghDrShywapDqczwrMwXd6dpTlhy3TIlxdqyoPe56lDa8ERYESeA3pKNV4KdoXkBuF4cUnHl+1FQeq0VtED4k6T1nT6EB6VTZtVkbjtAlMYxgwtjhONXmqI0dmj0IfC4dGn/dvArRSCqTs4hqY+iAHQbkonPTr6R0y1+DyMyopB8YWSs/5AXDV9BdmrrIH0ms5fL+UqKzxU2fSCwG7JYGyfcmYqdGgGdWXh6ljfc1vaefWfZOnkTgvsYUcyJ/sj4Z4FMgbBqzMVjtcVRngjtjPRU7h1D2hjWNpeIBJVFVEY5u3oS40S5Z48I2XUNqC7Mx2Xmbmh7kVyt0TwSwVCZ/PimBeeVv95Ymw7GUmfJk=
+env:
+  global:
+    secure: wxLNuza6PaJY7CxQ8N3s6wFxXsFYiY5YONXdZwBRrNKtQUeNmyRPRYCwMZ/43g2cwnnDi1a0IrshB8RT6/wyMQ2KK7hAD1SbVnVFbo3ZOP/PPBbBmRZsLTwN21PTYN/PfSKcIWuzp/qu5dia9dmV/H8DwYCS8FGVBEGNj4J8kgTRjdYALFfdJmEGsfPqFrJU6/6AoVux5CcEMBpjrZzIgJz/aX4q498jujjE+rJhtjA8nnV70LHJTzJNk55lR5LqPhecHKTf/XwprK986y8FyDEPeLJ78g/t1OMlUv5fzIlX2IRxnwndZ9HmNx9ZRrobTyx3YHRy94p6A1wiMYVu2xfgvam/rnKIV+4z71nd1JVkys4ajaiwzGVNhtigXmIDwKG1fWjBizQltHMiz2mvHYJ2t7oFF2HGGIgOkRXE9Sb+TLv7CfMdBQzmQ0O0odqbjWCubDGSaDDMjSkjAMN/wnuWuuGXz5UdFXx6RbWJ9fwEe16QkbL1itILKGsLm5XmqmVEdf5wKAQIEEE5Yc6wTCra21gp3lZJ2q78c8ML3moAbp+vTZg3+2gIZ/Da3hrEQlmJJ7khULhThXHgvxdoE5g4m4PoWGEiqnG35N6KTAAa1aJFlJD8Wz4eY15Ft/MqF1OlMZ0WvJ5ZXi9o60WsHus8v+ZRZqgqdlmD9tdxVp8=
