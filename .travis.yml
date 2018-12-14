@@ -21,7 +21,7 @@ addons:
       secure: ********* # encrypted value of your token
 script:
 - npm run test:once
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+- sonar-scanner
 notifications:
   slack:
     rooms:
