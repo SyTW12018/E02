@@ -18,7 +18,12 @@ addons:
    sonarcloud:
     organization: alu0100890402-github # the key of the org you chose at step #3
     token:
-      secure: ********* # encrypted value of your token
+      secure: "R4oWMIgdo7jJ3pXNR0XT+57GVTJ7rwT3Kgj9/+Eu1TvnM09w55Bx7+ZF3WsmjXo4JRAmBaVntHL9W2BVdLvVi/E4lmewQc4epKHLp+B7UuPadWaa
+yaDTpRgVVuJGU01QRaWqFkpWAjWD9JL2JeGKR3wwF0xLxuFTJQNMnL6KYAYxqoVYyNNKXg6oor/ml8NtAfa6fJKxCaTuPxul24dpqE6qp0lbEVkoYgxD6OxqroI
+FBKwU0LhkD0zg1BuuXhZFPoWUPY57Nht1MdRrFYpcrUWJUj8CkKv9EhLLm96qS/W1OR81uvGf3VRMgsp6bN8z74ukLAqz5KsknbGwC0I0LY2Z1Hur6z7ZvCQVy6
+6PBYrfLKoVuqdMnSEhRorerenwbCCw8bfnXJYYoLlGwwHUp+bhMOka3xe0YXS0SZf8I0WEUMqC/W13nRaAbTxu4viyBiZj/OG7XQWkyac4jYlrvjvs5ByZKcMy3
+gIVy+lGQoQywTl/urSbXPX6lAeKV9KHXJyIpY698UfMm/nezZSHViWDH5b7udFn9oJr3jyZRMB8Nqr1xI69hUFg/OV9DpfpQ+SvkddWVZjYFuJqsqzvAi8z0VIL
+2zwy1UgrvjEXvX9LoEMQvXRKJ2t7SkyfqzUfROZACzxeQ+KBPezUGqepUJcrqQTGYZngK+APl/r7+Ro="
 script:
 - npm run test:once
 - sonar-scanner
