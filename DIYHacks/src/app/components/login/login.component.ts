@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
                  // Navegar a la página solicitada
                  console.log('Credenciales correctas');
                  this.router.navigate([this.returnUrl]);
+                 this.router.navigate(['/dashboard'])
                },
                error => {
                  //Si las credenciales no son válidas...

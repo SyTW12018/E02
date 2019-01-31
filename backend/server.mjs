@@ -109,7 +109,14 @@ router.route('/email/:id').get((req,res)=>{
 
 // Authenticate user (Generar Token)
 router.route('/users/authenticate').post((req,res)=>{
-  User.findOne({'username': req.body.username}, (err,user)=>{
+  let given = req.body.username;
+  let request = {'username': given};
+  if (/\S{3,}@\S{3,}\.\S{2,4}$/.test(given)) {
+    request = {'email': given};
+  }
+  console.log("lo introducido es un", request);
+  User.findOne( request , (err,user)=>{
+    console.log('Lo encontrado es ', user);
     if (err) {
       return res.status(500).json({
         ok: false,

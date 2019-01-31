@@ -9,18 +9,18 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-      let apiUrl = 'http://localhost:4000';
-      return this.http.post<any>(`${apiUrl}/users/authenticate`, { username: username, password: password })
-          .pipe(map(user => {
-              // console.log('Response from ')
-              // login successful if there's a jwt token in the response
-              if (user && user.token) {
-                  // store user details and jwt token in local storage to keep user logged in between page refreshes
-                  localStorage.setItem('currentUser', JSON.stringify(user));
-              }
+    let apiUrl = 'http://localhost:4000';
+    return this.http.post<any>(`${apiUrl}/users/authenticate`, { username: username, password: password })
+        .pipe(map(user => {
+            // console.log('Response from ')
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+            }
 
-              return user;
-          }));
+            return user;
+        }));
   }
 
   logout() {

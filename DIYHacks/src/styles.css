@@ -9,7 +9,20 @@ a {
 input {
   text-align: center;
 }
+
+.post-content {
+  border: 1px solid green;
+  padding: 8px;
+  height: 300px;
+}
+
 /* fixing bootstrap class */
+.img-thumbnail {
+  display: inline;
+  margin: 10px;
+  max-width: 100px;
+  border-radius: 100%;
+}
 .row {
   margin: 0;
 }
