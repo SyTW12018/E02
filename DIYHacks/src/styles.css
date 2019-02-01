@@ -10,16 +10,87 @@ input {
   text-align: center;
 }
 
+.post {
+  margin-bottom: 40px;
+}
+
+.post-feedback > i {
+  margin: 2px 8px 2px 20px;
+}
+
+.feedcount {
+  font-size: 14pt;
+}
+
+.post-feedback {
+  text-align: left;
+  font-size: 20pt;
+}
+
+.tag {
+  color: #69f;
+}
+
+.top-post {
+  text-align: left;
+  margin: 0px 5;
+  min-height: 50px;
+  padding: 5px 0;
+}
+
+.post-time {
+  margin-top: -35px;
+  padding: 15px;
+  float: right;
+  color: #888;
+  font-size: smaller;
+}
+
+.post-title {
+  text-align: left;
+  color: #888;
+}
+
+.profilepic {
+  float: left;
+  margin-top: -10px;
+  width: 50px;
+  height: 50px;
+}
+
+.bg-main {
+  color: #fff;
+  background-color: #48924A;
+}
+
+.bottombar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.bot-link {
+  width: 25%;
+}
+
+.bot-link .fas {
+  margin: 10px 0;
+}
+
+.bot-active {
+  border-bottom: 4px solid #d1e4d2;
+}
+
 .post-content {
-  border: 1px solid green;
-  padding: 8px;
-  height: 300px;
+  color: #888;
+  max-height: 300px;
 }
 
 /* fixing bootstrap class */
 .img-thumbnail {
   display: inline;
-  margin: 10px;
+  margin: 0 7px;
   max-width: 100px;
   border-radius: 100%;
 }

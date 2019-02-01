@@ -16,7 +16,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthguardService } from './services/authguard.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service'
-import { JwtInterceptorService } from './services/jwt-interceptor.service'
+import { JwtInterceptorService } from './services/jwt-interceptor.service';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { JwtInterceptorService } from './services/jwt-interceptor.service'
     DashboardComponent,
     ProfileComponent,
     ExploreComponent,
-    SignupComponent
+    SignupComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

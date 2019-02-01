@@ -16,6 +16,8 @@ import { User } from '../../models/user.model';
 })
 export class SignupComponent {
 
+  loggin = true;
+
   formulario:FormGroup;
 
   constructor(private router:Router,

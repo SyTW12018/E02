@@ -9,6 +9,7 @@ import { User } from '../../models/user.model'
 })
 export class DashboardComponent implements OnInit {
 
+  logged = true;
   usuarios:User[];
 
   constructor(private userService:UsersService) {

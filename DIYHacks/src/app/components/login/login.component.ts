@@ -18,6 +18,8 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
+  loggin = true;
+
   noValid = false;
   returnUrl:string;
   formulario:FormGroup;
