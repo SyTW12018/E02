@@ -11,6 +11,9 @@ let User = new Schema({
   },
   email: {
     type:String
+  },
+  following: {
+    type:[String]
   }
 });
 

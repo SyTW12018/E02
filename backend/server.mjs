@@ -6,8 +6,9 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 // JWT seed
 const SEED = '@SyTW-@diyhacks';
-
+// import data models
 import User from './models/User';
+import Post from './models/Post';
 
 const app = express();
 const router = express.Router();
@@ -20,6 +21,88 @@ const connection = mongoose.connection;
 connection.once('open', ()=>{
   console.log('MongoDB conexion establecida');
 });
+
+// Post Related Requests
+router.route('/posts/get').get((req,res)=>{
+  Post.find((err,posts)=>{
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        mensaje: 'Error al buscar posts',
+        errors: err
+      })
+    }
+    if (posts.length == 0) {
+      return res.status(200).json({
+        ok: false,
+        mensaje: 'No existen posts',
+        errors: err
+      });
+    }
+    res.status(200).json({
+      ok: true,
+      posts: posts,
+      id: posts._id
+      // token: token,
+    });
+  })
+})
+router.route('/post/add').post((req,res)=>{
+  let post = new Post(req.body);
+  post.save().then(post =>{
+    res.status(200).json({'post':'Added successfully'})
+  })
+  .catch(err =>{
+    res.status(400).json({
+      'info': 'Failed to upload post',
+      'err': err
+    })
+  })
+});
+router.route('/like/:id').post((req,res)=>{
+  Post.findById(req.params.id, (err,post)=>{
+    if(err) {
+      return res.status(500).json({
+        ok: false,
+        mensaje: 'Error al buscar el post',
+        errors: err
+      })
+    }
+    if (!post) {
+      return res.status(200).json({
+        ok: false,
+        mensaje: 'El post no existe',
+        errors: err
+      });
+    }
+    let status = "added"
+    post.likes.forEach( (x, i, arr) => {
+      if(x.author == req.body.author) {
+        arr.splice(i,1);
+        status = "removed";
+      }
+    } )
+    if(status == "added") {
+      post.likes.push({
+        author: req.body.author
+      })
+    }
+    post.save().then(post =>{
+      res.status(200).json({
+        ok: true,
+        like: status
+      });
+    }).catch(err =>{
+      res.status(400).send('Update failed');
+    })
+
+    res.status(200).json({
+      ok: true,
+      usuario: 'added'
+    });
+  })
+})
+
 // Lista todos los usuarios
 router.route('/users').get((req,res)=>{
   User.find((err,users)=>{

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../../services/users.service'
 import { User } from '../../models/user.model'
+import { PostService } from '../../services/post.service'
+import { Post } from '../../models/post.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -11,13 +13,24 @@ export class DashboardComponent implements OnInit {
 
   logged = true;
   usuarios:User[];
+  posts:Post[];
 
-  constructor(private userService:UsersService) {
+  constructor(private userService:UsersService,
+              private postService:PostService) {
     // this.userService.variable
   }
 
   ngOnInit() {
     this.showUsers();
+    this.loadPosts();
+  }
+
+  loadPosts() {
+    this.postService.getPosts().subscribe((posts)=>{
+      console.log('Posts Cargados');
+      console.log(posts);
+      this.posts = posts;
+    })
   }
 
   showUsers() {
