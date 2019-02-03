@@ -14,7 +14,7 @@ const app = express();
 const router = express.Router();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '200mb'}));
 
 mongoose.connect('mongodb://localhost:27017/test', { useNewUrlParser: true });
 const connection = mongoose.connection;
@@ -49,6 +49,7 @@ router.route('/posts/get').get((req,res)=>{
 })
 router.route('/post/add').post((req,res)=>{
   let post = new Post(req.body);
+  console.log(post);
   post.save().then(post =>{
     res.status(200).json({'post':'Added successfully'})
   })
@@ -75,17 +76,16 @@ router.route('/like/:id').post((req,res)=>{
         errors: err
       });
     }
+    console.log("Llamada a la funcion Like")
     let status = "added"
     post.likes.forEach( (x, i, arr) => {
-      if(x.author == req.body.author) {
+      if(x == req.body.author) {
         arr.splice(i,1);
         status = "removed";
       }
     } )
     if(status == "added") {
-      post.likes.push({
-        author: req.body.author
-      })
+      post.likes.push(req.body.author)
     }
     post.save().then(post =>{
       res.status(200).json({
@@ -225,6 +225,7 @@ router.route('/users/authenticate').post((req,res)=>{
     let token = jwt.sign({ usuario: user}, SEED, {expiresIn: 14400 }); // 4 horas
 
     res.status(200).json({
+      ok: true,
       token: token,
       id: user._id
     });
@@ -250,6 +251,7 @@ router.route('/protected/profile/update/:id').post((req,res)=>{
       user.usuario = req.body.usuario;
       user.password = req.body.password;
       user.email = req.body.email;
+      user.profilepic = req.body.profilepic;
 
       user.save().then(user =>{
         res.json('Update done');

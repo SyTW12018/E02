@@ -10,6 +10,42 @@ input {
   text-align: center;
 }
 
+i {
+  cursor: pointer;
+}
+
+.top-15 {
+  margin-top: 15px;
+}
+
+.profilePage {
+  text-align: center;
+  margin-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.profilePagePic {
+  /* float: left; */
+  margin: 0 30px !important;
+  margin-left: -30px !important;
+  width: 100px;
+  height: 100px;
+}
+
+.post-pic {
+  max-width: 100%;
+}
+
+.post-text {
+  padding-top: 10px;
+}
+
+.createbutton {
+  margin: 0 15px 15px 15px;
+  min-width: 120px;
+}
+
 .post {
   margin-bottom: 40px;
 }
@@ -58,6 +94,7 @@ input {
   height: 50px;
 }
 
+
 .bg-main {
   color: #fff;
   background-color: #48924A;
@@ -84,7 +121,7 @@ input {
 
 .post-content {
   color: #888;
-  max-height: 300px;
+  /* min-height: 300px; */
 }
 
 /* fixing bootstrap class */

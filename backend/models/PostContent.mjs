@@ -3,8 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 let PostContent = new Schema({
-  images: { type: [String] },
-  video: { type: String },
+  media: { type: String },
   text: { type: String }
 })
 

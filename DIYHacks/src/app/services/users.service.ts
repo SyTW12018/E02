@@ -18,7 +18,8 @@ export class UsersService {
     return this.http.get<User[]>(`${this.url}/users`).pipe(
             map( res => {
               return res.map( (user) => {
-                return new User( user.username,user.password,user.email, user._id,);
+                let foll:string[] = user.following.map( (x) => x )
+                return new User( user.username,user.password,user.email, foll, user.profilepic, user._id,);
               } )
             } )
           );
@@ -26,10 +27,24 @@ export class UsersService {
   getUser(id:string):Observable<User> {
     return this.http.get<User>(`${this.url}/protected/profile/${id}`).pipe(
       map( (res:any) => {
+        if (!res.ok)
+          return null;
+        let foll:string[] = res.usuario.following.map( (x) => x )
         return new User( res.usuario.username,
                          res.usuario.password,
                          res.usuario.email,
-                         res._id )
+                         foll, res.usuario.profilepic,
+                         res.usuario._id )
+      })
+    )
+  }
+
+  getUserName(id:string):Observable<string> {
+    return this.http.get<string>(`${this.url}/protected/profile/${id}`).pipe(
+      map( (res:any) => {
+        if (!res.ok)
+          return "";
+        return res.usuario.username;
       })
     )
   }

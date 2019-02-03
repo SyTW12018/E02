@@ -18,6 +18,10 @@ import { AuthguardService } from './services/authguard.service';
 import { ErrorInterceptorService } from './services/error-interceptor.service'
 import { JwtInterceptorService } from './services/jwt-interceptor.service';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { CreatepostComponent } from './components/createpost/createpost.component';
+import { DomseguroPipe } from './pipes/domseguro.pipe';
+import { ProfilepicPipe } from './pipes/profilepic.pipe';
+import { CustomdatePipe } from './pipes/customdate.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,11 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
     ProfileComponent,
     ExploreComponent,
     SignupComponent,
-    NavbarComponent
+    NavbarComponent,
+    CreatepostComponent,
+    DomseguroPipe,
+    ProfilepicPipe,
+    CustomdatePipe
   ],
   imports: [
     BrowserModule,

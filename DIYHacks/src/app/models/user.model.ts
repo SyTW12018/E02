@@ -1,16 +1,20 @@
 
 export class User  {
 
-  constructor(u:String, p:String, e:String, id?:String,) {
+  constructor(u:string, p:string, e:string, f?:string[], pic?:string, id?:string,) {
     this._id = id;
     this.username = u;
     this.password = p;
     this.email = e;
+    this.following = f;
+    this.profilepic = pic;
   }
-  _id:String;
-  username:String;
-  password:String;
-  email:String;
+  _id:string;
+  username:string;
+  password:string;
+  email:string;
+  following:string[];
+  profilepic:string;
 
   saludar() {
     return `Hola, soy ${this.username}`

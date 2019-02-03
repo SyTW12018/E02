@@ -1,0 +1,42 @@
+<div class="wrapper animated fadeIn fast">
+
+    <form class="main-form" [formGroup]="form" (ngSubmit)="subir()">
+      <div class="form-group">
+        <input type="text"
+              class="form-control"
+              formControlName="title"
+              placeholder="Titulo del post">
+      </div>
+      <div class="form-group text-center">
+            <button type="button"
+                    (click)="video = false"
+                    class="btn btn-primary createbutton">
+                <i class="fas fa-image"></i> Foto
+            </button>
+            <button type="button"
+                    (click)="video = true"
+                    class="btn btn-success createbutton">
+                <i class="fas fa-video"></i> Video
+            </button>
+      <div style="">
+        <input [ngStyle]="{'display': video ? 'none' : 'block'}" style="margin: auto" type="file" accept="image/*" (change)="changeListener($event)">
+        <input [ngStyle]="{'display': video ? 'block' : 'none'}" class="form-control" type="text" placeholder="Introduce el link" id="videolink">
+      </div>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control text-center" formControlName="text" placeholder="Escribe aquí"></textarea>
+      </div>
+
+      <br>
+      <button [disabled]="false"
+              style="margin-top:15px"
+              type="submit"
+              class="btn btn-signup btn-lg">
+              Subir
+      </button>
+
+
+    </form>
+
+
+</div>

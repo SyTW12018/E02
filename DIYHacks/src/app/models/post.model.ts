@@ -3,31 +3,39 @@ import { Comment } from './comment.model';
 
 export class Post  {
 
-  constructor(a:String,
-              f:Date, 
-              t:String,
-              c:PostContent,
-              l:Number,
-              comms:[Comment],
-              id?:String) {
+  constructor(a:Autor,
+              t:string,
+              m:string,
+              txt:string,
+              l?:string[],
+              comms?:[Comment],
+              f?:Date,
+              id?:string) {
     this._id = id;
     this.author = a;
     this.title = t;
     this.date = f;
-    this.content = c;
+    this.media = m;
+    this.text = txt;
     this.likes = l;
     this.comments = comms;
   }
-  author:String;
+  author:Autor;
   title:String;
   date:Date;
-  content:PostContent;
-  likes:Number;
-  comments:[Comment];
+  media:string;
+  text:string;
+  likes:string[];
+  comments:Comment[];
   _id:String;
 
   saludar() {
     return `Hola, soy ${this.author}`
   }
 
+}
+
+export interface Autor {
+  username:string;
+  profilepic:string;
 }

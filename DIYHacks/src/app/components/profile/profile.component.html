@@ -1,3 +1,44 @@
-<p>
-  profile works!
-</p>
+<div class="profilePage">
+  <img src="{{currentUser | profilepic}}" class="profilePagePic img-thumbnail">
+  <h4 style="display:inline">@{{currentUser?.username}}</h4>
+
+  <div class="top-15">
+    <button type="button" class="btn btn-primary" name="button" (click)="changePic()">Cambiar foto</button>
+    <div class="custom-file" style="max-width:50%; margin-left:10px">
+      <input type="file" class="custom-file-input" id="customFileLang" lang="es" accept="image/*" (change)="changeListener($event)">
+      <label class="custom-file-label" style="text-align: left" for="customFileLang">Seleccionar</label>
+    </div>
+  </div>
+  <div class="top-15">
+    <input type="password" class="form-control" id="password" style="max-width:80%; margin:auto; margin-bottom: 5px" placeholder="Nueva contraseña">
+    <button type="button" class="btn btn-danger" name="button" (click)="changePassword()">Cambiar contraseña</button>
+  </div>
+  <div class="top-15">
+    <hr>
+    <h3>Mis Posts</h3>
+
+    <div *ngFor="let post of posts; let i = index" class="post">
+      <div class="top-post">
+        <img src="{{post?.author?.profilepic | profilepic:'true'}}" class="img-thumbnail profilepic">
+        <b>{{ post.author.username }}</b><br>
+        <span class="post-title">{{ post.title }}</span>
+        <span class="post-time">{{ post.date | customdate }}</span>
+      </div>
+      <div class="post-content">
+        <img *ngIf="!urlRegEx.test(post.media)" src="{{ post?.media }}" class="img-fluid">
+        <div *ngIf="urlRegEx.test(post.media)" class="embed-responsive embed-responsive-16by9">
+          <iframe class="embed-responsive-item" [src]="post.media | domseguro" allowfullscreen></iframe>
+        </div>
+        <p class="post-text">{{ post.text }}</p>
+
+      </div>
+      <div class="post-feedback">
+        <i *ngIf="!isliked(i)" class="far fa-heart" (click)="likePost(i)"></i>
+        <i *ngIf="isliked(i)" class="fas fa-heart" style="color:red" (click)="likePost(i)"></i> <span class="feedcount">{{ post.likes.length }}</span>
+        <i class="far fa-comment"></i> <span class="feedcount">{{ post.comments.length }}</span>
+      </div>
+    </div>
+
+
+  </div>
+</div>
