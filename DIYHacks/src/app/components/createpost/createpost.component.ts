@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
@@ -16,7 +17,8 @@ export class CreatepostComponent implements OnInit {
   post:Post;
   image:any;
 
-  constructor(private postService:PostService) {
+  constructor(private postService:PostService,
+              private router: Router) {
 
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -55,10 +57,11 @@ export class CreatepostComponent implements OnInit {
       this.post = new Post(this.form.value.author,
                            this.form.value.title, media,
                            this.form.value.text )
-      console.log(this.post); 
+      console.log(this.post);
 
     this.postService.uploadPost(this.post).subscribe( (res)=>{
-      console.log(res)
+      console.log(res);
+      this.router.navigate(['/dashboard'])
     } )
   }
 

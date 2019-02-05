@@ -74,17 +74,19 @@ export class ProfileComponent implements OnInit {
     this.postService.getPosts().subscribe((posts)=>{
       console.log('Posts Cargados');
       console.log(posts);
-      this.posts = posts;
+      // this.posts = posts;
 
-      this.posts.reverse();
-      this.posts = this.posts.filter( (x) => x.author.username == this.currentUser._id )
+      posts.reverse();
+      posts = posts.filter( (x) => x.author.username == this.currentUser._id )
 
-      this.posts.forEach( (p, i, arr) => {
+      posts.forEach( (p, i, arr) => {
         this.userService.getUser(p.author.username).subscribe( (x) => {
           arr[i].author.username = x.username;
           arr[i].author.profilepic = x.profilepic;
         } )
       } )
+
+      this.posts = posts;
     })
   }
   likePost(idx:number) {
