@@ -10,7 +10,7 @@ import { Post, Autor } from '../models/post.model';
 })
 export class PostService {
 
-  url = "http://localhost:4000";
+  url = "http://10.6.129.52:8080";
 
   constructor(private http:HttpClient) { }
 

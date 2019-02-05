@@ -9,7 +9,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(username: string, password: string) {
-    let apiUrl = 'http://localhost:4000';
+    let apiUrl = 'http://10.6.129.52:8080';
     return this.http.post<any>(`${apiUrl}/users/authenticate`, { username: username, password: password })
         .pipe(map(user => {
             // console.log('Response from ')
